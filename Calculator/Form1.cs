@@ -30,7 +30,7 @@ namespace Calculator
 
         private void aboutToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Version 1.0\nThis Calculator was created by Michael, James and Zach.\n4/7/2017");
+            MessageBox.Show("Version 1.1\nThis Calculator was created by Michael, James and Zach.\n4/7/2017");
         }
 
         private void historyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -48,9 +48,27 @@ namespace Calculator
                 Calc.equationUnsolved.Clear();
                 e.Handled = true;
             }
+            else if(e.KeyChar == (char)Keys.Back) 
+            {
+                if (Calc.equationUnsolved.Length != 0)
+                {
+                    Calc.equationUnsolved.Length -= 1;
+                }
+                richTextBox1.Clear();
+                richTextBox1.AppendText(Calc.equationUnsolved.ToString());
+            }
             else
             {
-                Calc.equationUnsolved.Append(e.KeyChar);
+                if (Calc.checkSolved())
+                {
+                    richTextBox1.Clear();
+                    Calc.setCheckSolved();
+                    Calc.equationUnsolved.Append(e.KeyChar); 
+                }
+                else
+                {
+                    Calc.equationUnsolved.Append(e.KeyChar);
+                }
             }
         }
 
@@ -241,6 +259,7 @@ namespace Calculator
     {
         public StringBuilder equationUnsolved;
         ArrayList equations = new ArrayList();
+        bool equationSolved = false;
 
         public Calculator()
         {
@@ -255,6 +274,7 @@ namespace Calculator
             {
                 answer = new DataTable().Compute(equation, null).ToString();
                 equations.Add(equation + "    ->  " + answer);
+                equationSolved = true;
             }
             catch
             {
@@ -275,6 +295,16 @@ namespace Calculator
 
 
             return history.ToString();
+        }
+
+        public bool checkSolved()
+        {
+            return equationSolved;
+        }
+
+        public void setCheckSolved()
+        {
+            equationSolved = false;
         }
     }
 
