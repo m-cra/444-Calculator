@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Calculator
 {
@@ -314,18 +315,95 @@ namespace Calculator
         {
             string equation = equationUnsolved.ToString();
             string answer;
+
+            StringBuilder s = new StringBuilder();
+            int i = 0;
             try
             {
-                answer = new DataTable().Compute(equation, null).ToString();
+                string[] equation_sub = Regex.Split(equation, @"(\(|\)|(?<!e|E)-|(?<!e|E)\+|\*|\%|\=|\!|\^|\√\(|/|\s+)");
+                foreach (string a in equation_sub)
+                {
+                    
+                    s.Append(i + "  " + a + '\n');
+                    i++;
+                }
+
+            
+                //MessageBox.Show(s.ToString());
+               
+                if ((equation_sub[0].Contains('.') || equation_sub[2].Contains('.')) && equation_sub[1].Contains('%'))
+                {
+                    Decimal ans = Convert.ToDecimal(equation_sub[0]) % Convert.ToDecimal(equation_sub[2]);
+                    answer = ans.ToString();
+                }
+                else if(equation_sub[1].Contains('!')) 
+                {
+                    if(equation_sub[0] != equation_sub[2])
+                    {
+                        answer = "True";
+                    }
+                    else
+                    {
+                        answer = "False";
+                    }
+                }
+                else if (equation_sub[1].Contains('='))
+                {
+                    if (equation_sub[0] == equation_sub[2])
+                    {
+                        answer = "True";
+                    }
+                    else
+                    {
+                        answer = "False";
+                    }
+                }
+                else if(equation_sub[1].Contains('^'))
+                {
+                    double ans = Math.Pow(Convert.ToDouble(equation_sub[0]), Convert.ToDouble(equation_sub[2]));
+                    answer = ans.ToString();
+                }
+                else if (equation_sub[1].Contains("√(") && equation_sub[5].Contains("^"))
+                {
+                    double ans = Math.Sqrt(Convert.ToDouble(equation_sub[2]));
+                    ans = Math.Pow(ans, Convert.ToDouble(equation_sub[6]));
+                    answer = ans.ToString();
+                }
+                else if (equation_sub[1].Contains("√("))
+                {
+                    double ans = Math.Sqrt(Convert.ToDouble(equation_sub[2]));
+                    answer = ans.ToString();
+                }
+                else if(equation_sub[1].Contains('%'))
+                {
+                    int ans = Convert.ToInt32(equation_sub[2]) % Convert.ToInt32(equation_sub[0]);
+                    answer = ans.ToString();
+                }
+                else if(equation_sub[1].Contains('-') && equation_sub[3].Contains('%'))
+                {
+                    int ans = Convert.ToInt32(equation_sub[4]) % (-1 * Convert.ToInt32(equation_sub[2]));
+                    answer = ans.ToString();
+                }
+                else if(equation_sub[0].Contains('e'))
+                {
+                    double ans = (Math.Cos(Math.PI) + Math.Sin(Math.PI) * Convert.ToDouble(equation_sub[6]));
+                    MessageBox.Show("Testy");
+                    answer = ans.ToString();
+                }
+                else
+                {
+                    answer = new DataTable().Compute(equation, null).ToString();
+                }             
                 equations.Add(equation + "    ->  " + answer);
                 equationSolved = true;
-            }
+            }    
             catch
             {
                 return "Syntax Error";
             }
             return answer;
         }
+
         public string PrintHisotry()
         {
             StringBuilder history = new StringBuilder("");

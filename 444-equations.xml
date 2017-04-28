@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Equations>
-  <Equation q ="5+4">
+  <Equation q ="(75-33)*7">
    </Equation>
- <Equation q ="5=4">
+ <Equation q ="526/23">
    </Equation>
+ <Equation q = "526/23.0">
+    </Equation>
+ <Equation q = "56=10">
+    </Equation>
+ <Equation q = "56!=10">
+    </Equation>
+ <Equation q = "√(3.5)^2">
+    </Equation>
+ <Equation q = "e^(pi*1)+1">
+    </Equation>
    </Equations>
