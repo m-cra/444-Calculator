@@ -9,12 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Reflection;
+using System.Windows.Input;
+using System.Xml;
+using System.Linq;
+using System.Text;
 
 namespace Calculator
 {
     public partial class Form1 : Form
     {
         Calculator Calc;
+        string dataType = "";
 
         public Form1()
         {
@@ -251,7 +260,42 @@ namespace Calculator
 
         }
 
+        private void importEquationsXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path;
+            OpenFileDialog file = new OpenFileDialog();
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                path = file.FileName;
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.IgnoreWhitespace = true;
+                settings.IgnoreComments = true;
+                XmlReader xmlIn = XmlReader.Create(path, settings);
 
+
+                if (xmlIn.ReadToDescendant("Equation"))
+                {
+
+                    int counter = 0;
+                    // create one Product object for each Product node
+                    do
+                    {
+                        Calc.equationUnsolved.Append (xmlIn["q"]);
+                        richTextBox1.Clear();
+                        richTextBox1.AppendText("Equations Solved - Check View Hisotry");
+                        Calc.Solve();
+                        Calc.equationUnsolved.Clear();
+                        counter++;
+                    }
+                    while (xmlIn.ReadToNextSibling("Equation"));
+                }
+
+                // close the XmlReader object
+                xmlIn.Close();
+
+            }
+            
+        }
     }
 
 

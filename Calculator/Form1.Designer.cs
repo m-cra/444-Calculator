@@ -71,6 +71,7 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.historyLabel = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.importEquationsXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -549,6 +550,7 @@
             // fileToolStripMenuItem1
             // 
             this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importEquationsXMLToolStripMenuItem,
             this.quitToolStripMenuItem1});
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
@@ -557,7 +559,7 @@
             // quitToolStripMenuItem1
             // 
             this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
-            this.quitToolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
+            this.quitToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
             this.quitToolStripMenuItem1.Text = "Quit";
             this.quitToolStripMenuItem1.Click += new System.EventHandler(this.quitToolStripMenuItem1_Click);
             // 
@@ -587,7 +589,7 @@
             // historyToolStripMenuItem
             // 
             this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
-            this.historyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.historyToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.historyToolStripMenuItem.Text = "History";
             this.historyToolStripMenuItem.Click += new System.EventHandler(this.historyToolStripMenuItem_Click);
             // 
@@ -615,6 +617,13 @@
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
             this.richTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
+            // 
+            // importEquationsXMLToolStripMenuItem
+            // 
+            this.importEquationsXMLToolStripMenuItem.Name = "importEquationsXMLToolStripMenuItem";
+            this.importEquationsXMLToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.importEquationsXMLToolStripMenuItem.Text = "Import Equations (XML)";
+            this.importEquationsXMLToolStripMenuItem.Click += new System.EventHandler(this.importEquationsXMLToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -708,6 +717,7 @@
         private System.Windows.Forms.Label historyLabel;
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem importEquationsXMLToolStripMenuItem;
     }
 }
 

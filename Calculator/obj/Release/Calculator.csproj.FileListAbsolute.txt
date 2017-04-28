@@ -24,3 +24,12 @@ C:\Users\Zachary\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculat
 C:\Users\Zachary\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.Form1.resources
 C:\Users\Zachary\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.Properties.Resources.resources
 C:\Users\Zachary\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.csproj.GenerateResource.Cache
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\bin\Release\Calculator.exe.config
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\bin\Release\Calculator.exe
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\bin\Release\Calculator.pdb
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\obj\Release\Calculator.csprojResolveAssemblyReference.cache
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\obj\Release\Calculator.Form1.resources
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\obj\Release\Calculator.Properties.Resources.resources
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\obj\Release\Calculator.csproj.GenerateResource.Cache
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\obj\Release\Calculator.exe
+C:\Users\m-cra\Documents\Visual Studio 2017\Projects\444-Calculator-master\Calculator\obj\Release\Calculator.pdb
