@@ -6,7 +6,11 @@
    </Equation>
  <Equation q = "526/23.0">
     </Equation>
+<Equation q = "0.25%1.15">
+    </Equation>
 <Equation q = "39/10 w">
+    </Equation>
+<Equation q = "10%-7">
     </Equation>
 <Equation q = "15/3.33 w">
     </Equation>
@@ -27,5 +31,27 @@
 <Equation q = "10!">
     </Equation>
 <Equation q = "2!">
+    </Equation>
+<Equation q = "-10!">
+    </Equation>
+<Equation q = "1^-1">
+    </Equation>
+<Equation q = "2^-1">
+    </Equation>
+<Equation q = "5^-1">
+    </Equation>
+<Equation q = "10^-1">
+    </Equation>
+<Equation q = "1^1/3">
+    </Equation>
+<Equation q = "2^1/3">
+    </Equation>
+<Equation q = "5^1/3">
+    </Equation>
+<Equation q = "10^1/3">
+    </Equation>
+<Equation q = "log(10)">
+    </Equation>
+<Equation q = "ln(10)">
     </Equation>
    </Equations>

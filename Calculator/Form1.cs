@@ -25,6 +25,7 @@ namespace Calculator
     {
         Calculator Calc;
         string dataType = "";
+        TextBox inputText = new TextBox();
 
         public Form1()
         {
@@ -47,6 +48,15 @@ namespace Calculator
         {
             MessageBox.Show(Calc.PrintHisotry());
         }
+
+        //Random Toolstrip button event
+        private void randomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+        }
+
+
 
         private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -297,6 +307,8 @@ namespace Calculator
             }
             
         }
+
+        
     }
 
 
@@ -316,15 +328,32 @@ namespace Calculator
             string equation = equationUnsolved.ToString();
             double ans = 0.0;
             string answer;
+            
 
             StringBuilder s = new StringBuilder();
             int i = 0;
             try
             {
-                string[] equation_sub = Regex.Split(equation, @"(\(|\)|(?<!e|E)-|(?<!e|E)\+|\*|\%|\=|\!|\^|\√\(|/|\s+)");
+                string[] equation_sub = Regex.Split(equation, @"(\(|\)|(?<!e)-|(?<!e)\+|\*|\%|\=|\!|\^|\√\(|/|\s+)");
+                List<string> stringList = equation_sub.ToList();
+                for(int f = 0; f < stringList.Count; f++)
+                {
+                    //MessageBox.Show(stringList.ElementAt(f));
+                    if(stringList.ElementAt(f).Contains('-'))
+                    {
+                       // MessageBox.Show("IAMHERE");
+                        stringList.RemoveAt(f);
+                        int negNum = Convert.ToInt32(stringList.ElementAt(f)) * -1;
+                        stringList.Insert(f, negNum.ToString());
+                        stringList.RemoveAt(f+1);
+                    }
+                }           
+                stringList.Remove("");
+                stringList.Remove("");
+                equation_sub = stringList.Select(list => list.ToString()).ToArray();
+
                 foreach (string a in equation_sub)
                 {
-                    
                     s.Append(i + "  " + a + '\n');
                     i++;
                 }
@@ -332,16 +361,17 @@ namespace Calculator
  //Use this to debugg what characters are in equation_sub string array           
                 //MessageBox.Show(s.ToString());
 
-                if ((equation_sub[0].Contains('.') || equation_sub[2].Contains('.')) && equation_sub[1].Contains('%'))
+                if (equation_sub[1].Contains("!"))
                 {
-                    Decimal decAns = Convert.ToDecimal(equation_sub[0]) % Convert.ToDecimal(equation_sub[2]);
-                    answer = decAns.ToString();
-                }
-                else if (equation_sub[1].Contains('!'))
-                {
-                    if (equation_sub.Length == 3)
+                    if (equation_sub.Length == 2)
                     {
+                        bool negNum = false;
                         int number = Convert.ToInt32(equation_sub[0]);
+                        if(number < 0 )
+                        {
+                            negNum = true;
+                            number = number * -1;
+                        }
 
                         double result = 1;
                         while (number != 1)
@@ -349,12 +379,16 @@ namespace Calculator
                             result = result * number;
                             number = number - 1;
                         }
+                        if(negNum)
+                        {
+                            result = result * -1;
+                        }
                         answer = result.ToString();
 
                     }
                     else
                     {
-                        if (equation_sub[0] != equation_sub[4])
+                        if (equation_sub[0] != equation_sub[3])
                         {
                             answer = "True";
                         }
@@ -391,15 +425,23 @@ namespace Calculator
                     }
                     else
                     {
-                        ans = Math.Pow(Convert.ToDouble(equation_sub[0]), x);
+                        if (equation_sub.Length > 4)
+                        {
+                            ans = Math.Pow(Convert.ToDouble(equation_sub[0]), (Convert.ToDouble(equation_sub[2]) / Convert.ToDouble(equation_sub[4])));
+                        }
+                        else
+                        {
+                            ans = Math.Pow(Convert.ToDouble(equation_sub[0]), x);
+                        }
+                       
                     }
 
                     answer = ans.ToString();
                 }
-                else if (equation_sub[1].Contains("√(") && equation_sub[5].Contains("^"))
+                else if (equation_sub[0].Contains("√(") && equation_sub[3].Contains("^"))
                 {
-                    ans = Math.Sqrt(Convert.ToDouble(equation_sub[2]));
-                    ans = Math.Pow(ans, Convert.ToDouble(equation_sub[6]));
+                    ans = Math.Sqrt(Convert.ToDouble(equation_sub[1]));
+                    ans = Math.Pow(ans, Convert.ToDouble(equation_sub[4]));
                     answer = ans.ToString();
                 }
                 else if (equation_sub[1].Contains("√("))
@@ -409,7 +451,17 @@ namespace Calculator
                 }
                 else if (equation_sub[1].Contains('%'))
                 {
-                    int intAns = Convert.ToInt32(equation_sub[0]) % Convert.ToInt32(equation_sub[2]);
+                    Decimal num1 = Convert.ToDecimal(equation_sub[0]);
+                    Decimal num2 = Convert.ToDecimal(equation_sub[2]);
+                    if (num1 < 0)
+                    {
+                        num2 = num2 * -1;
+                    }
+                    if(num2 < 0)
+                    {
+                        num1 = num1 * -1;
+                    }
+                    double intAns = (double)num1 % (double)num2;
                     answer = intAns.ToString();
                 }
                 else if (equation_sub[1].Contains('/'))
@@ -429,10 +481,31 @@ namespace Calculator
                         answer = new DataTable().Compute(equation, null).ToString();
                     }                 
                 }
+                else if (equation_sub[0].Contains('l'))
+                {
+                    if(equation_sub[0].Contains("ln"))
+                    {
+                        MessageBox.Show("In ln");
+                        ans = Math.Log(Convert.ToDouble(equation_sub[2]));
+                    }
+                    else
+                    {
+                        ans = Math.Log10(Convert.ToDouble(equation_sub[2]));
+                    }
+                    answer = ans.ToString();
+                }
                 else
                 {
                     answer = new DataTable().Compute(equation, null).ToString();
-                }             
+                }
+                //MessageBox.Show("Before rounding " +answer);
+               //MessageBox.Show("After rounding" + Math.Round(Convert.ToDouble(answer), 10, MidpointRounding.AwayFromZero).ToString());
+                answer = Math.Round(Convert.ToDouble(answer), 12, MidpointRounding.AwayFromZero).ToString();
+                if (answer.Length >12)
+                {
+                    int cutoff = answer.Length - 12;
+                    answer = answer.Remove(answer.Length - cutoff);
+                }
                 equations.Add(equation + "     ->  " + answer);
                 equationSolved = true;
             }
@@ -464,6 +537,12 @@ namespace Calculator
 
 
             return history.ToString();
+        }
+
+        public string Random()
+        {
+
+            return "";
         }
 
         public bool checkSolved()
