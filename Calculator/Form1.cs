@@ -41,7 +41,7 @@ namespace Calculator
 
         private void aboutToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Version 1.4\nThis Calculator was created by Michael, James and Zach.\n5/17/2017");
+            MessageBox.Show("Version 1.51\nThis Calculator was created by Michael, James and Zach.\n5/17/2017");
         }
 
         private void historyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -485,7 +485,6 @@ namespace Calculator
                 {
                     if(equation_sub[0].Contains("ln"))
                     {
-                        MessageBox.Show("In ln");
                         ans = Math.Log(Convert.ToDouble(equation_sub[2]));
                     }
                     else
@@ -499,8 +498,14 @@ namespace Calculator
                     answer = new DataTable().Compute(equation, null).ToString();
                 }
                 //MessageBox.Show("Before rounding " +answer);
-               //MessageBox.Show("After rounding" + Math.Round(Convert.ToDouble(answer), 10, MidpointRounding.AwayFromZero).ToString());
-                answer = Math.Round(Convert.ToDouble(answer), 12, MidpointRounding.AwayFromZero).ToString();
+                //MessageBox.Show("After rounding" + Math.Round(Convert.ToDouble(answer), 10, MidpointRounding.AwayFromZero).ToString());
+
+
+                if(answer.Where(x => Char.IsDigit(x)).Any())
+                {
+                    answer = Math.Round(Convert.ToDouble(answer), 12, MidpointRounding.AwayFromZero).ToString();
+                }
+                
                 if (answer.Length >12)
                 {
                     int cutoff = answer.Length - 12;
