@@ -62,6 +62,7 @@
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.importEquationsXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,7 +72,6 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.historyLabel = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.importEquationsXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -556,6 +556,13 @@
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem1.Text = "File";
             // 
+            // importEquationsXMLToolStripMenuItem
+            // 
+            this.importEquationsXMLToolStripMenuItem.Name = "importEquationsXMLToolStripMenuItem";
+            this.importEquationsXMLToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.importEquationsXMLToolStripMenuItem.Text = "Import Equations (XML)";
+            this.importEquationsXMLToolStripMenuItem.Click += new System.EventHandler(this.importEquationsXMLToolStripMenuItem_Click);
+            // 
             // quitToolStripMenuItem1
             // 
             this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
@@ -617,13 +624,6 @@
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
             this.richTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
-            // 
-            // importEquationsXMLToolStripMenuItem
-            // 
-            this.importEquationsXMLToolStripMenuItem.Name = "importEquationsXMLToolStripMenuItem";
-            this.importEquationsXMLToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.importEquationsXMLToolStripMenuItem.Text = "Import Equations (XML)";
-            this.importEquationsXMLToolStripMenuItem.Click += new System.EventHandler(this.importEquationsXMLToolStripMenuItem_Click);
             // 
             // Form1
             // 

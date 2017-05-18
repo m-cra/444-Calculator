@@ -40,7 +40,7 @@ namespace Calculator
 
         private void aboutToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Version 1.1\nThis Calculator was created by Michael, James and Zach.\n4/7/2017");
+            MessageBox.Show("Version 1.4\nThis Calculator was created by Michael, James and Zach.\n5/17/2017");
         }
 
         private void historyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -329,30 +329,32 @@ namespace Calculator
                     i++;
                 }
 
-            
-                MessageBox.Show(s.ToString());
-               
+ //Use this to debugg what characters are in equation_sub string array           
+                //MessageBox.Show(s.ToString());
+
                 if ((equation_sub[0].Contains('.') || equation_sub[2].Contains('.')) && equation_sub[1].Contains('%'))
                 {
                     Decimal decAns = Convert.ToDecimal(equation_sub[0]) % Convert.ToDecimal(equation_sub[2]);
                     answer = decAns.ToString();
                 }
-                else if(equation_sub[1].Contains('!')) 
+                else if (equation_sub[1].Contains('!'))
                 {
-                    if(equation_sub.Length == 2)
+                    if (equation_sub.Length == 3)
                     {
-                        int j, number = 0;
-                        int fact = Convert.ToInt32(equation_sub[0]);
-                        for (j = number - 1; j >= 1; j--)
+                        int number = Convert.ToInt32(equation_sub[0]);
+
+                        double result = 1;
+                        while (number != 1)
                         {
-                            fact = fact * i;
+                            result = result * number;
+                            number = number - 1;
                         }
-                        answer = ans.ToString();
+                        answer = result.ToString();
 
                     }
                     else
                     {
-                        if (equation_sub[0] != equation_sub[2])
+                        if (equation_sub[0] != equation_sub[4])
                         {
                             answer = "True";
                         }
@@ -360,7 +362,7 @@ namespace Calculator
                         {
                             answer = "False";
                         }
-                    }                
+                    }
                 }
                 else if (equation_sub[1].Contains('='))
                 {
@@ -373,7 +375,7 @@ namespace Calculator
                         answer = "False";
                     }
                 }
-                else if(equation_sub[1].Contains('^'))
+                else if (equation_sub[1].Contains('^'))
                 {
                     double x = Convert.ToDouble(equation_sub[2]);
                     if (equation_sub[0].Contains('e'))
@@ -391,7 +393,7 @@ namespace Calculator
                     {
                         ans = Math.Pow(Convert.ToDouble(equation_sub[0]), x);
                     }
-                    
+
                     answer = ans.ToString();
                 }
                 else if (equation_sub[1].Contains("√(") && equation_sub[5].Contains("^"))
@@ -405,29 +407,47 @@ namespace Calculator
                     ans = Math.Sqrt(Convert.ToDouble(equation_sub[2]));
                     answer = ans.ToString();
                 }
-                else if(equation_sub[1].Contains('%'))
+                else if (equation_sub[1].Contains('%'))
                 {
-                    int intAns = Convert.ToInt32(equation_sub[2]) % Convert.ToInt32(equation_sub[0]);
+                    int intAns = Convert.ToInt32(equation_sub[0]) % Convert.ToInt32(equation_sub[2]);
                     answer = intAns.ToString();
                 }
-                //else if(equation_sub[1].Contains('-') && equation_sub[3].Contains('%'))
-                //{
-                //    int ans = Convert.ToInt32(equation_sub[4]) % (-1 * Convert.ToInt32(equation_sub[2]));
-                //    answer = ans.ToString();
-                //}
+                else if (equation_sub[1].Contains('/'))
+                {
+                    Decimal doubleAns = 0M;
+                    if (equation_sub.Length > 4)
+                    {
+                        if (equation_sub[4].Contains('w'))
+                        {
+                            Decimal result = Convert.ToDecimal(equation_sub[0]) / Convert.ToDecimal(equation_sub[2]);
+                            doubleAns = Math.Truncate(result);
+                        }
+                        answer = doubleAns.ToString();
+                    }
+                    else
+                    {
+                        answer = new DataTable().Compute(equation, null).ToString();
+                    }                 
+                }
                 else
                 {
                     answer = new DataTable().Compute(equation, null).ToString();
                 }             
-                equations.Add(equation + "    ->  " + answer);
+                equations.Add(equation + "     ->  " + answer);
                 equationSolved = true;
-            }    
+            }
+            catch (ArithmeticException a)
+            {
+                //MessageBox.Show(a.ToString());
+                return "Arithmetic Error";
+            }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
-                equations.Add(equation + "    ->  " + "Syntax Error");
+                equations.Add(equation + "\t->  " + "Syntax Error");
                 return "Syntax Error";
             }
+            
             return answer;
         }
 
