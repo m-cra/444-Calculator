@@ -42,3 +42,4 @@ C:\Users\Zach\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.
 C:\Users\Zach\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.exe
 C:\Users\Zach\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.pdb
 C:\Users\Zach\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.Form2.resources
+C:\Users\Zach\Documents\GitHub\444-Calculator\Calculator\obj\Release\Calculator.csprojResolveAssemblyReference.cache

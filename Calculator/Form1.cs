@@ -41,7 +41,7 @@ namespace Calculator
 
         private void aboutToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Version 1.51\nThis Calculator was created by Michael, James and Zach.\n5/17/2017");
+            MessageBox.Show("Version 1.6\nThis Calculator was created by Michael, James and Zach.\n5/17/2017");
         }
 
         private void historyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,10 +358,14 @@ namespace Calculator
                     i++;
                 }
 
- //Use this to debugg what characters are in equation_sub string array           
+                //Use this to debugg what characters are in equation_sub string array           
                 //MessageBox.Show(s.ToString());
-
-                if (equation_sub[1].Contains("!"))
+                //MessageBox.Show(equation_sub.Length.ToString());
+                if (equation_sub.Length == 1)
+                {
+                    answer = equation;
+                }
+                else if (equation_sub[1].Contains("!"))
                 {
                     if (equation_sub.Length == 2)
                     {
@@ -495,7 +499,7 @@ namespace Calculator
                 }
                 else
                 {
-                    answer = new DataTable().Compute(equation, null).ToString();
+                    answer = new DataTable().Compute(equation, null).ToString();                
                 }
                 //MessageBox.Show("Before rounding " +answer);
                 //MessageBox.Show("After rounding" + Math.Round(Convert.ToDouble(answer), 10, MidpointRounding.AwayFromZero).ToString());
@@ -521,7 +525,7 @@ namespace Calculator
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                //MessageBox.Show(e.ToString());
                 equations.Add(equation + "\t->  " + "Syntax Error");
                 return "Syntax Error";
             }
@@ -548,6 +552,13 @@ namespace Calculator
         {
 
             return "";
+        }
+
+        public string setEquationUnsolved(string s)
+        {
+            equationUnsolved = new StringBuilder(s);
+            string ans = Solve();
+            return ans;
         }
 
         public bool checkSolved()
